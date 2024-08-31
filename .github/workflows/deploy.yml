@@ -1,47 +1,23 @@
-name: Deploy to Hostinger VPS
+name: Deploy
 
 on:
   push:
+    branches:
+      - master
+  pull_request:
     branches:
       - master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install PHP 8.2
-        run: |
-          sudo add-apt-repository ppa:ondrej/php -y
-          sudo apt-get update
-          sudo apt-get install -y php8.2 php8.2-cli php8.2-mbstring php8.2-xml php8.2-curl php8.2-zip
-
-      - name: Verify PHP Version
-        run: php -v
-
-      - name: Install dependencies
-        run: |
-          php8.2 -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-          php8.2 composer-setup.php --install-dir=/usr/local/bin --filename=composer
-          php8.2 /usr/local/bin/composer update
-          php8.2 /usr/local/bin/composer install --no-dev --prefer-dist --optimize-autoloader
-          npm install
-          npm run build
-
-      - name: Deploy to VPS
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.HOSTINGER_SSH_LARAVEL_USER }} << 'EOF'
-            cd /htdocs/srv590533.hstgr.cloud
-            git pull origin master
-            composer install --no-dev --prefer-dist --optimize-autoloader
-            npm install
-            npm run build
-            php artisan migrate --force
-            php artisan cache:clear
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-          EOF
+      - uses: actions/checkout@v2
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOSTINGER_SSH_LARAVEL_HOST }}
+          username: ${{ secrets.HOSTINGER_SSH_LARAVEL_USERNAME }}
+          port: ${{ secrets.HOSTINGER_SSH_LARAVEL_PORT }}
+          key: ${{ secrets.SSHKEY }}
+          script: "cd /var/www/html && ./.scripts/deploy.sh"
