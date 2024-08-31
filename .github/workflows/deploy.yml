@@ -33,7 +33,7 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh ${{ secrets.HOSTINGER_SSH_LARAVEL_USER }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.HOSTINGER_SSH_LARAVEL_USER }} << 'EOF'
             cd /htdocs/srv590533.hstgr.cloud
             git pull origin master
             composer install --no-dev --prefer-dist --optimize-autoloader
