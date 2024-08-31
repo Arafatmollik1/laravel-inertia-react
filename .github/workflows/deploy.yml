@@ -19,5 +19,5 @@ jobs:
           host: ${{ secrets.HOSTINGER_SSH_LARAVEL_HOST }}
           username: ${{ secrets.HOSTINGER_SSH_LARAVEL_USERNAME }}
           port: ${{ secrets.HOSTINGER_SSH_LARAVEL_PORT }}
-          key: ${{ secrets.SSHKEY }}
+          key: ${{ secrets.HOSTINGER_SSH_SERVER_PRIVATE_KEY }}
           script: "cd /var/www/html && ./.scripts/deploy.sh"
