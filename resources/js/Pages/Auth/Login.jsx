@@ -27,7 +27,7 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
             <h1 className="text-3xl font-extrabold text-center py-4">
-                Welcome to Schedule System
+                Welcome to Skedulli
             </h1>
             <h2 className="text-xl font-light text-center py-4">
                 Log in to your account
