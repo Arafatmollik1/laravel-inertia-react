@@ -21,4 +21,5 @@ jobs:
           password: ${{ secrets.HOSTINGER_SSH_PASSWORD }}
           script: |
             cd htdocs/srv590533.hstgr.cloud/
+            ls -la
             ./deploy.sh
