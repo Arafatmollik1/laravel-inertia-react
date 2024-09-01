@@ -20,4 +20,5 @@ jobs:
           username: ${{ secrets.HOSTINGER_SSH_LARAVEL_USERNAME }}
           password: ${{ secrets.HOSTINGER_SSH_PASSWORD }}
           script: |
-            ls -l
+            cd htdocs/srv590533.hstgr.cloud/
+            ./deploy.sh
