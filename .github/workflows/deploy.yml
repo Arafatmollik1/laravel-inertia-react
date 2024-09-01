@@ -20,8 +20,4 @@ jobs:
           username: ${{ secrets.HOSTINGER_SSH_LARAVEL_USERNAME }}
           password: ${{ secrets.HOSTINGER_SSH_PASSWORD }}
           script: |
-            echo "Contents of /var/www/html:"
-            ls -l /var/www/html
-            echo "Running deploy script..."
-            cd /var/www/html
-            ./deploy.sh
+            ls -l
