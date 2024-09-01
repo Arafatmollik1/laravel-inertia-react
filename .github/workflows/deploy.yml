@@ -13,11 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v0.1.4
+      - name: Deploy to production
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOSTINGER_SSH_LARAVEL_HOST }}
           username: ${{ secrets.HOSTINGER_SSH_LARAVEL_USERNAME }}
-          port: ${{ secrets.HOSTINGER_SSH_LARAVEL_PORT }}
-          key: ${{ secrets.HOSTINGER_SSH_SERVER_PRIVATE_KEY }}
-          script: "cd /var/www/html && ./.scripts/deploy.sh"
+          password: ${{ secrets.HOSTINGER_SSH_PASSWORD }}
+          script: 'cd /var/www/html && ./server_deploy.sh'
